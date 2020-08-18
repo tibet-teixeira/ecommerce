@@ -1,0 +1,249 @@
+body {
+    font-family: "Lato", serif;
+    font-size: 12px;
+}
+
+body a {
+    color: #444444;
+}
+
+body a:hover {
+    color: #222222;
+    text-decoration: none;
+
+}
+
+header {
+    position: relative;
+    height: auto;
+    width: 100%;
+    margin-top: 30px;
+}
+
+header .main_header{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    height: auto;
+    flex-wrap: wrap;
+    margin-left: 130px;
+    margin-right: 80px;
+    margin-bottom: 30px;
+}
+
+header .main_header .logo img {
+    width: 150px;
+    height: 70px;
+}
+
+header .logo{
+    width: 15%;
+}
+
+header .buscar {
+    width: 60%;
+}
+
+header input {
+    width: 100%;
+    height: 40px;
+}
+
+header .main_header .links_usuario {
+    position: relative;
+    display: flex;
+    width: 20%;
+}
+
+header .main_header .links_usuario .links{
+    position: relative;
+    display: flex;
+}
+
+header .main_header .links_usuario .links div {
+    padding-right: 10px;
+    font-size: 20px;
+}
+
+header .main_header .links_usuario .links {
+    margin-left: 20px;
+}
+
+header .main_header .links_usuario span {
+    padding-right: 10px;
+}
+
+header .categorias{
+    width: 100%;
+    text-align: center;
+}
+
+header .categorias ul li a:hover {
+    text-decoration: overline;
+}
+
+header .categorias ::after{
+    border-bottom: 2px;
+}
+
+header .categorias ul li{
+    display: inline;
+    padding-left: 40px;
+}
+
+header .categorias ul .first_item{
+    padding-left: 0;
+}
+
+.banner {
+    width: 100%;
+}
+
+.banner img{
+    width: 100%;
+}
+
+.banner ::after{
+    clear: both;
+}
+
+.produtos {
+    margin-top: 60px;
+    display: block;
+    width: 100%;
+}
+
+.produtos > p{
+    font-size: 30px;
+    font-family: "Lato", serif;
+    text-transform: uppercase;
+    font-weight: 300;
+    text-align: center;
+}
+
+.produtos .grupo_produtos_main {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    height: auto;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: 50px;
+}
+
+.produtos .grupo_produtos_main .produto_main a {
+    text-align: center;
+}
+
+.produtos .grupo_produtos_main .produto_main a .nome_produto_main{ 
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: bolder;
+    color: #444444;
+    background-color: #ffffff;
+}
+
+.produtos .grupo_produtos_main .produto_main a .preco_produto_main{ 
+    font-size: 16px;
+    font-family: 'lato', bold;
+    font-weight: bolder;
+    color: #111111;
+    background-color: #ffffff;
+}
+
+footer {
+    margin-top: 30px;
+    background-color: #aaaaaa;
+    width: 100%;
+}
+
+footer .footer_group {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    height: auto;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-left: 50px;
+    margin-right: 50px;
+    padding-top: 30px;
+}
+
+footer .footer_group .atendimento_ajuda {
+    width: 20%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+footer .footer_group .atendimento_ajuda > div {
+    width: 90px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+footer .footer_group .atendimento_ajuda > div > a > i {
+    display: block;
+    font-size: 20px;
+}
+
+footer .footer_group .atendimento_ajuda > div > a > span {
+    font-size: 16px;
+    line-height: 1.2em;
+}
+
+footer .footer_group .sobre_nos {
+    padding: 0 10px;
+    margin-bottom: 40px;
+    align-content: center;
+}
+
+footer .footer_group .sobre_nos > span {
+    text-align: center;
+    font-weight: bold;
+}
+
+footer .footer_group .sobre_nos ul{
+    list-style-type: none;
+}
+
+footer .footer_group .sobre_nos ul li{
+    margin-bottom: 2px;
+}
+
+footer .footer_group .perguntas_frequentes {
+    padding: 0 10px;
+    margin-bottom: 40px;
+    align-content: center;
+}
+
+footer .footer_group .perguntas_frequentes > span {
+    text-align: center;
+    font-weight: bold;
+}
+
+footer .footer_group .perguntas_frequentes ul{
+    list-style-type: none;
+}
+
+footer .footer_group .perguntas_frequentes ul li{
+    margin-bottom: 2px;
+}
+
+footer .footer_group .rede_social_footer {
+    width: 15%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+footer .footer_group .rede_social_footer  {
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+footer .footer_group .rede_social_footer > a > i {
+    font-size: 23px;
+}
