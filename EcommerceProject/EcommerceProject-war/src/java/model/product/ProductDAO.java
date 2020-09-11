@@ -51,9 +51,10 @@ public class ProductDAO {
         preparedStatement.setInt(4, product.getQuantity());
         preparedStatement.setString(5, product.getPicture());
 
+        int result = preparedStatement.executeUpdate();
+
         insertProductCategory(product, connection);
 
-        int result = preparedStatement.executeUpdate();
         preparedStatement.close();
         closeConnection(connection);
 
@@ -73,6 +74,8 @@ public class ProductDAO {
             int result = preparedStatement.executeUpdate();
 
             if (result != 1) {
+                preparedStatement.close();
+                closeConnection(connection);
                 throw new Exception("Não foi possível associar o produto à categoria selecionada");
             }
         }
@@ -105,7 +108,7 @@ public class ProductDAO {
         insertProductCategory(product, connection);
     }
 
-    public void deleteAllCategoriesFromProduct(Product product, Connection connection) throws Exception {
+    private void deleteAllCategoriesFromProduct(Product product, Connection connection) throws Exception {
         String sqlQuery = "DELETE FROM produto_categoria WHERE id_produto = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
         preparedStatement.setInt(1, product.getId());
@@ -290,7 +293,7 @@ public class ProductDAO {
 
             throw new Exception("Não foi possível obter um produto");
         }
-        
+
         for (int idProduct : productIds) {
             products.add(get(idProduct));
         }

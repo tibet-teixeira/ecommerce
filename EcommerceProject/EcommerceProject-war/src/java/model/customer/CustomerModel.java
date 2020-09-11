@@ -13,6 +13,11 @@ public class CustomerModel {
         CustomerDAO customerDAO = new CustomerDAO();
         return customerDAO.get(login);
     }
+    
+    public Customer get(int id) throws Exception {
+        CustomerDAO customerDAO = new CustomerDAO();
+        return customerDAO.get(id);
+    }
 
     public boolean identifier(String login, String password) throws Exception {
         if (login == null 
