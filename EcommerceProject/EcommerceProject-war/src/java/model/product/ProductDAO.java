@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.category.Category;
+import model.category.CategoryModel;
 
 /**
  *
@@ -80,9 +81,15 @@ public class ProductDAO {
     public void update(Product product, int id) throws Exception {
         Connection connection = getConnection();
 
-        String sqlQuery = "";
+        String sqlQuery = "UPDATE produto SET descricao = ?, preco = ?, quantidade = ?, foto = ? WHERE id = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+        preparedStatement.setString(1, product.getDescription());
+        preparedStatement.setDouble(2, product.getPrice());
+        preparedStatement.setInt(3, product.getQuantity());
+        preparedStatement.setString(4, product.getPicture());
+        preparedStatement.setInt(5, id);
 
+        updateProductCategory(product, connection);
 
         int result = preparedStatement.executeUpdate();
         preparedStatement.close();
@@ -90,6 +97,25 @@ public class ProductDAO {
 
         if (result != 1) {
             throw new Exception("Não foi possível atualizar este produto");
+        }
+    }
+
+    private void updateProductCategory(Product product, Connection connection) throws Exception {
+        deleteAllCategoriesFromProduct(product, connection);
+        insertProductCategory(product, connection);
+    }
+
+    public void deleteAllCategoriesFromProduct(Product product, Connection connection) throws Exception {
+        String sqlQuery = "DELETE FROM produto_categoria WHERE id_produto = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+        preparedStatement.setInt(1, product.getId());
+
+        int result = preparedStatement.executeUpdate();
+        preparedStatement.close();
+        closeConnection(connection);
+
+        if (result != 1) {
+            throw new Exception("Não foi possível remover este produto");
         }
     }
 
@@ -113,71 +139,160 @@ public class ProductDAO {
         Product product = null;
         Connection connection = getConnection();
 
-        String sqlQuery = "";
+        String sqlQuery = "SELECT id, descricao, preco, quantidade, foto FROM produto WHERE id = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
         preparedStatement.setInt(1, id);
 
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
             product = new Product();
-
+            product.setId(resultSet.getInt("id"));
+            product.setDescription(resultSet.getString("descricao"));
+            product.setPrice(resultSet.getDouble("preco"));
+            product.setQuantity(resultSet.getInt("quantidade"));
+            product.setPicture(resultSet.getString("foto"));
         }
-
-        resultSet.close();
-        preparedStatement.close();
-        closeConnection(connection);
 
         if (product == null) {
+            resultSet.close();
+            preparedStatement.close();
+            closeConnection(connection);
+
             throw new Exception("Não foi possível obter este produto");
         }
+
+        List<Category> categories = new ArrayList<>();
+
+        sqlQuery = "SELECT id_produto, id_categoria, cat.descricao as descricao"
+                + "FROM produto_categoria "
+                + "INNER JOIN categoria as cat ON (cat.id = id_categoria) "
+                + "WHERE id_produto = ?";
+        preparedStatement = connection.prepareStatement(sqlQuery);
+        preparedStatement.setInt(1, id);
+
+        resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            Category category = new Category();
+            category.setId(resultSet.getInt("id_categoria"));
+            category.setDescription(resultSet.getString("descricao"));
+
+            categories.add(category);
+        }
+
+        product.setCategories(categories);
 
         return product;
     }
 
-    public Product get(String login) throws Exception {
+    public Product get(String description) throws Exception {
         Product product = null;
         Connection connection = getConnection();
 
-        String sqlQuery = "";
+        String sqlQuery = "SELECT id, descricao, preco, quantidade, foto "
+                + "FROM produto "
+                + "WHERE descricao LIKE ?";
+
         PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+        preparedStatement.setString(1, description);
 
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
             product = new Product();
-
+            product.setId(resultSet.getInt("id"));
+            product.setDescription(resultSet.getString("descricao"));
+            product.setPrice(resultSet.getDouble("preco"));
+            product.setQuantity(resultSet.getInt("quantidade"));
+            product.setPicture(resultSet.getString("foto"));
         }
-        resultSet.close();
-        preparedStatement.close();
-
-        closeConnection(connection);
 
         if (product == null) {
+            resultSet.close();
+            preparedStatement.close();
+            closeConnection(connection);
+
             throw new Exception("Não foi possível obter este produto");
         }
+
+        List<Category> categories = new ArrayList<>();
+
+        sqlQuery = "SELECT id_produto, id_categoria, cat.descricao as descricao"
+                + "FROM produto_categoria "
+                + "INNER JOIN categoria as cat ON (cat.id = id_categoria) "
+                + "WHERE id_produto = ?";
+        preparedStatement = connection.prepareStatement(sqlQuery);
+        preparedStatement.setInt(1, product.getId());
+
+        resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            Category category = new Category();
+            category.setId(resultSet.getInt("id_categoria"));
+            category.setDescription(resultSet.getString("descricao"));
+
+            categories.add(category);
+        }
+
+        product.setCategories(categories);
 
         return product;
     }
 
-    public List<Product> getAll() throws Exception {
-        List<Product> products = new ArrayList<Product>();
+    public List<Product> get(Category category) throws Exception {;
+        List<Product> products = new ArrayList<>();
+        List<Integer> productIds = new ArrayList<>();
+
         Connection connection = getConnection();
 
-        String sqlQuery = "";
+        String sqlQuery = "SELECT id_produto, id_categoria "
+                + "FROM produto_categoria "
+                + "INNER JOIN categoria as cat ON (cat.id = id_categoria) "
+                + "WHERE cat.descricao LIKE ?";
+
+        PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+        preparedStatement.setString(1, category.getDescription());
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            productIds.add(resultSet.getInt("id_produto"));
+        }
+
+        if (productIds.isEmpty()) {
+            resultSet.close();
+            preparedStatement.close();
+            closeConnection(connection);
+
+            throw new Exception("Não existe produto com esta categoria");
+        }
+
+        for (int idProduct : productIds) {
+            products.add(get(idProduct));
+        }
+
+        return products;
+    }
+
+    public List<Product> getAll() throws Exception {
+        List<Product> products = new ArrayList<Product>();
+        List<Integer> productIds = new ArrayList<>();
+        Connection connection = getConnection();
+
+        String sqlQuery = "SELECT id, descricao, preco, quantidade, foto FROM produto";
         PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
 
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
-            Product product = new Product();
-
-            products.add(product);
+            productIds.add(resultSet.getInt("id"));
         }
-        resultSet.close();
-        preparedStatement.close();
 
-        closeConnection(connection);
+        if (productIds.isEmpty()) {
+            resultSet.close();
+            preparedStatement.close();
+            closeConnection(connection);
 
-        if (products.isEmpty()) {
             throw new Exception("Não foi possível obter um produto");
+        }
+        
+        for (int idProduct : productIds) {
+            products.add(get(idProduct));
         }
 
         return products;

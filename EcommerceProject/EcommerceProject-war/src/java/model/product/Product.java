@@ -6,6 +6,7 @@
 package model.product;
 
 import java.util.ArrayList;
+import java.util.List;
 import model.category.Category;
 
 /**
@@ -18,7 +19,7 @@ public class Product {
     private double price;
     private int quantity;
     private String picture;
-    private ArrayList<Category> categories;
+    private List<Category> categories;
 
     public int getId() {
         return id;
@@ -60,11 +61,11 @@ public class Product {
         this.picture = picture;
     }
 
-    public ArrayList<Category> getCategories() {
+    public List<Category> getCategories() {
         return categories;
     }
 
-    public void setCategories(ArrayList<Category> categories) {
+    public void setCategories(List<Category> categories) {
         this.categories = categories;
     }
 

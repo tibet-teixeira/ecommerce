@@ -6,6 +6,7 @@
 package model.purchase;
 
 import java.util.ArrayList;
+import java.util.List;
 import javafx.util.Pair;
 import model.product.Product;
 import model.customer.Customer;
@@ -16,7 +17,7 @@ import model.customer.Customer;
  */
 public class Purchase {
     private int id;
-    private ArrayList< Pair<Product, Integer> > products;
+    private List< Pair<Product, Integer> > numberProducts;
     private Customer customer;
     private String date;
 
@@ -28,12 +29,12 @@ public class Purchase {
         this.id = id;
     }
 
-    public ArrayList<Pair<Product, Integer>> getProducts() {
-        return products;
+    public List< Pair<Product, Integer> > getNumberProducts() {
+        return numberProducts;
     }
 
-    public void setProducts(ArrayList<Pair<Product, Integer>> products) {
-        this.products = products;
+    public void setNumberProducts(List< Pair<Product, Integer> > numberProducts) {
+        this.numberProducts = numberProducts;
     }
 
     public Customer getCustomer() {
