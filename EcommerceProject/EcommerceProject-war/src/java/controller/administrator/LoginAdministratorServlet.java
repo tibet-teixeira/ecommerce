@@ -45,7 +45,7 @@ public class LoginAdministratorServlet extends HttpServlet {
 
         if (success) {
             System.out.println("Login realizado com sucesso");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("home_adm.jsp");
             dispatcher.forward(request, response);
         } else {
             request.setAttribute("message", "Login ou senha inválida");
