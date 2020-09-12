@@ -40,21 +40,21 @@ public class ProductDAO {
 
     public void insert(Product product) throws Exception {
         int id = getLastId();
-
+        product.setId(id+1);
         Connection connection = getConnection();
 
         String sqlQuery = "INSERT INTO produto (id, descricao, preco, quantidade, foto) VALUES (?, ?, ?, ?, ?)";
         PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
-        preparedStatement.setInt(1, id + 1);
+        preparedStatement.setInt(1, product.getId());
         preparedStatement.setString(2, product.getDescription());
         preparedStatement.setDouble(3, product.getPrice());
         preparedStatement.setInt(4, product.getQuantity());
         preparedStatement.setString(5, product.getPicture());
 
         int result = preparedStatement.executeUpdate();
-
+        
         insertProductCategory(product, connection);
-
+        
         preparedStatement.close();
         closeConnection(connection);
 
@@ -70,7 +70,7 @@ public class ProductDAO {
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setInt(1, product.getId());
             preparedStatement.setInt(2, category.getId());
-
+            System.out.println("Id produto: " + product.getId() + " Id categoria: " + category.getId());
             int result = preparedStatement.executeUpdate();
 
             if (result != 1) {

@@ -17,6 +17,18 @@ public class Category {
     private String description;
     private ArrayList<Product> products;
 
+    public Category() {
+    }
+
+    public Category(int id, String description) {
+        this.id = id;
+        this.description = description;
+    }
+    
+    public Category(String description) {
+        this.description = description;
+    }
+    
     public int getId() {
         return id;
     }

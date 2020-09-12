@@ -21,6 +21,18 @@ public class Product {
     private String picture;
     private List<Category> categories;
 
+    public Product() {
+    }
+
+    
+    public Product(String description, double price, int quantity, String picture, List<Category> categories) {
+        this.description = description;
+        this.price = price;
+        this.quantity = quantity;
+        this.picture = picture;
+        this.categories = categories;
+    }
+    
     public int getId() {
         return id;
     }

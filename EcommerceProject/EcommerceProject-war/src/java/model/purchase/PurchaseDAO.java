@@ -43,13 +43,13 @@ public class PurchaseDAO {
 
     public void insert(Purchase purchase) throws Exception {
         int id = getLastId();
-
+        purchase.setId(id + 1);
         Connection connection = getConnection();
 
         String sqlQuery = "INSERT INTO compra (id, data_hora, id_cliente) "
                 + "VALUES (?, ?)";
         PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
-        preparedStatement.setInt(1, id + 1);
+        preparedStatement.setInt(1, purchase.getId());
         preparedStatement.setString(2, purchase.getDate());
         preparedStatement.setInt(3, purchase.getCustomer().getId());
 
