@@ -46,14 +46,6 @@
                                 out.print("<div class='col col-sm-1'><a href='sacola.jsp'><i class='fas fa-shopping-bag'></i></a></div>");
                                 out.print("<div class='col col-sm-1'><a href='logout'><i class='fas fa-sign-out-alt'></i></a></div>");
 
-                            } else if (session.getAttribute("user") instanceof Administrator) {
-                                Administrator administrator = (Administrator) session.getAttribute("user");
-                                fullname = administrator.getName();
-                                String username[] = fullname.split(" ");
-                                
-                                out.print("<span class='col col-sm-auto welcome-msg'>Bem vindo " + username[0] + "</span>");
-                                out.print("<div class='col col-sm-1'><a href='perfil_adm.jsp'><i class='fas fa-user'></i></a></div>");
-                                out.print("<div class='col col-sm-1'><a href='logoutadm'><i class='fas fa-sign-out-alt'></i></a></div>");
                             } else {
                                 out.print("<span class='col col-sm-9 welcome-msg'></span>");
                                 out.print("<div class='col col-sm-1'><a href='login.jsp'><i class='fas fa-user'></i></a></div>");
