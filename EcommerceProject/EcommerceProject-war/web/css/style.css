@@ -46,6 +46,10 @@ header .main-header .logo img {
     text-align: center;
 }
 
+.main-product {
+    margin-bottom: 30px;
+}
+
 .main-products .title-home-page {
     text-transform: uppercase;
     font-size: 24px;

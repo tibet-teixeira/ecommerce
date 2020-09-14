@@ -1,5 +1,11 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="model.product.Product"%>
+<%@page import="model.product.ProductModel"%>
 <%@page import="model.customer.Customer"%>
+<% final int NUMBER_PRODUCTS_INDEX = 12; %>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html lang="pt_br">
@@ -32,6 +38,7 @@
                             </div> 
                         </form>
                     </div>
+
                     <div class="user-links col col-sm-3 row">
                         <%
                             String fullname = "";
@@ -39,7 +46,7 @@
                                 Customer customer = (Customer) session.getAttribute("user");
                                 fullname = customer.getName();
                                 String username[] = fullname.split(" ");
-                                
+
                                 out.print("<span class='col col-sm-auto welcome-msg'>Bem vindo " + username[0] + "</span>");
                                 out.print("<div class='col col-sm-1'><a href='perfil_cliente.jsp'><i class='fas fa-user'></i></a></div>");
                                 out.print("<div class='col col-sm-1'><a href='sacola.jsp'><i class='fas fa-shopping-bag'></i></a></div>");
@@ -99,72 +106,39 @@
             </div>
 
             <div class="main-products container">
+                <%
+                    ProductModel productModel = new ProductModel();
+                    List<Product> products = productModel.getAllIndex();
+
+                    if (products.size() > NUMBER_PRODUCTS_INDEX) {
+                        for (int i = NUMBER_PRODUCTS_INDEX; i <= products.size(); i++) {
+                            products.remove(NUMBER_PRODUCTS_INDEX);
+                        }
+                    }
+                %>
                 <span class="title-home-page">Alguns dos nossos produtos</span>
 
                 <div class="row">
-                    <div class="col col-sm main-product">
-                        <a href="http://">
-                            <img src="img/produto.png" alt="">
-                            <div class="main-product-info">
-                                <span class="main-product-name">Produto 1</span>
-                                <span class="main-product-price">R$ 25,80</span>
-                            </div>
-                        </a>
-                    </div>
+                    <%
+                        for (Product product : products) {
+                            out.print("<div class='col col-sm-3 main-product'>");
+                            out.print("<a href='http://'>");
 
-                    <div class="col col-sm main-product">
-                        <a href="http://">
-                            <img src="img/produto.png" alt="">
-                            <div class="main-product-info">
-                                <span class="main-product-name">Produto 2</span>
-                                <span class="main-product-price">R$ 25,80</span>
-                            </div>
-                        </a>
-                    </div>
+                            if (product.getPicture().equals("")) {
+                                out.print("<img src='img/produto.png' alt='" + product.getDescription() + "'>");
+                            } else {
+                                out.print("<img src='" + product.getPicture() + "' alt='" + product.getDescription() + "'>");
+                            }
 
-                    <div class="col col-sm main-product">
-                        <a href="http://">
-                            <img src="img/produto.png" alt="">
-                            <div class="main-product-info">
-                                <span class="main-product-name">Produto 3</span>
-                                <span class="main-product-price">R$ 25,80</span>
-                            </div>
-                        </a>
-                    </div>
+                            out.print("<div class='main-product-info'>");
+                            out.print("<span class='main-product-name'>" + product.getDescription() + "</span>");
+                            out.print("<span class='main-product-price'>R$ " + product.getPrice() + "</span>");
+                            out.print("</div>");
+                            out.print("</a>");
+                            out.print("</div>");
+                        }
+                    %>
                 </div>
-
-                <div class="row">
-                    <div class="col col-sm main-product">
-                        <a href="http://">
-                            <img src="img/produto.png" alt="">
-                            <div class="main-product-info">
-                                <span class="main-product-name">Produto 4</span>
-                                <span class="main-product-price">R$ 25,80</span>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="col col-sm main-product">
-                        <a href="http://">
-                            <img src="img/produto.png" alt="">
-                            <div class="main-product-info">
-                                <span class="main-product-name">Produto 5</span>
-                                <span class="main-product-price">R$ 25,80</span>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="col col-sm main-product">
-                        <a href="http://">
-                            <img src="img/produto.png" alt="">
-                            <div class="main-product-info">
-                                <span class="main-product-name">Produto 6</span>
-                                <span class="main-product-price">R$ 25,80</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
             </div>
         </div>
 

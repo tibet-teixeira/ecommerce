@@ -40,7 +40,7 @@ public class ProductDAO {
 
     public void insert(Product product) throws Exception {
         int id = getLastId();
-        product.setId(id+1);
+        product.setId(id + 1);
         Connection connection = getConnection();
 
         String sqlQuery = "INSERT INTO produto (id, descricao, preco, quantidade, foto) VALUES (?, ?, ?, ?, ?)";
@@ -52,9 +52,9 @@ public class ProductDAO {
         preparedStatement.setString(5, product.getPicture());
 
         int result = preparedStatement.executeUpdate();
-        
+
         insertProductCategory(product, connection);
-        
+
         preparedStatement.close();
         closeConnection(connection);
 
@@ -70,7 +70,7 @@ public class ProductDAO {
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setInt(1, product.getId());
             preparedStatement.setInt(2, category.getId());
-            System.out.println("Id produto: " + product.getId() + " Id categoria: " + category.getId());
+
             int result = preparedStatement.executeUpdate();
 
             if (result != 1) {
@@ -164,9 +164,9 @@ public class ProductDAO {
             throw new Exception("Não foi possível obter este produto");
         }
 
-        List<Category> categories = new ArrayList<>();
+        List<Category> categories = new ArrayList<>();;
 
-        sqlQuery = "SELECT id_produto, id_categoria, cat.descricao as descricao"
+        sqlQuery = "SELECT id_produto, id_categoria, cat.descricao as descricao "
                 + "FROM produto_categoria "
                 + "INNER JOIN categoria as cat ON (cat.id = id_categoria) "
                 + "WHERE id_produto = ?";
@@ -181,6 +181,10 @@ public class ProductDAO {
 
             categories.add(category);
         }
+
+        resultSet.close();
+        preparedStatement.close();
+        closeConnection(connection);
 
         product.setCategories(categories);
 
@@ -280,8 +284,38 @@ public class ProductDAO {
 
         String sqlQuery = "SELECT id, descricao, preco, quantidade, foto FROM produto";
         PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
-
         ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()) {
+            productIds.add(resultSet.getInt("id"));
+        }
+
+        if (productIds.isEmpty()) {
+            resultSet.close();
+            preparedStatement.close();
+            closeConnection(connection);
+
+            throw new Exception("Não foi possível obter um produto");
+        }
+
+        for (int idProduct : productIds) {
+            products.add(get(idProduct));
+        }
+
+        return products;
+    }
+
+    public List<Product> getAllIndex() throws Exception {
+        List<Product> products = new ArrayList<Product>();
+        List<Integer> productIds = new ArrayList<>();
+        Connection connection = getConnection();
+
+        String sqlQuery = "SELECT id, descricao, preco, quantidade, foto "
+                + "FROM produto "
+                + "WHERE quantidade > 0";
+        PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
         while (resultSet.next()) {
             productIds.add(resultSet.getInt("id"));
         }

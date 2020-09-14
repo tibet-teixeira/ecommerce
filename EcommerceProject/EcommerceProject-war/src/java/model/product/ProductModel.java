@@ -29,6 +29,11 @@ public class ProductModel {
         return productDAO.getAll();
     }
     
+    public List<Product> getAllIndex() throws Exception {
+        ProductDAO productDAO = new ProductDAO();
+        return productDAO.getAllIndex();
+    }
+    
     public void update(Product product, int id) throws Exception {
         ProductDAO productDAO = new ProductDAO();
         productDAO.update(product, id);
