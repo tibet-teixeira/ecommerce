@@ -323,3 +323,8 @@ a:hover .fa-youtube {
     cursor: pointer;
     color: #000000;
 }
+
+.card-body {
+    margin: 0 auto;
+    text-align: center;
+}

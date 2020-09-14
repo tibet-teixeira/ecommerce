@@ -1,13 +1,11 @@
-<%@page import="model.administrator.Administrator"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="model.customer.Customer"%>
+<%@page import="model.administrator.Administrator"%>
 
 <!DOCTYPE html>
-<html lang="pt_br">
+<html lang="en">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="third_party/bootstrap-4.5.1/css/bootstrap.css">
         <link rel="stylesheet" href="third_party/fontawesome-5.14.0/css/fontawesome.css">
@@ -35,77 +33,109 @@
                     </div>
                     <div class="user-links col col-sm-3 row">
                         <%
+                            int id = 0;
                             String fullname = "";
+                            String email = "";
+                            String login = "";
+                            String password = "";
+
+                            if (session.getAttribute("user") instanceof Administrator) {
                                 Administrator administrator = (Administrator) session.getAttribute("user");
+                                id = administrator.getId();
                                 fullname = administrator.getName();
-                                String username[] = fullname.split(" ");
+                                email = administrator.getEmail();
+                                login = administrator.getLogin();
+                                password = administrator.getPassword();
                                 
+                                String username[] = fullname.split(" ");
+
                                 out.print("<span class='col col-sm-auto welcome-msg'>Bem vindo " + username[0] + "</span>");
                                 out.print("<div class='col col-sm-1'><a href='perfil_admin.jsp'><i class='fas fa-user'></i></a></div>");
-                                out.print("<div class='col col-sm-1'><a href='logoutadm'><i class='fas fa-sign-out-alt'></i></a></div>");     
+                                out.print("<div class='col col-sm-1'><a href='logout'><i class='fas fa-sign-out-alt'></i></a></div>");
+
+                            } else {
+                                out.print("<span class='col col-sm-9 welcome-msg'></span>");
+                                out.print("<div class='col col-sm-1'><a href='login.jsp'><i class='fas fa-user'></i></a></div>");
+                                out.print("<div class='col col-sm-1'><a href='sacola.jsp'><i class='fas fa-shopping-bag'></i></a></div>");
+                            }
                         %>
                     </div>
                 </div>
             </div>
         </header>
+        <div class="container-fluid">
+            <div class="">
+                <div class="left-menu">
+                    <div class="container">
+                        <ul class="opcoes_menu_cliente">
+                            <li><a href="perfil_cliente.html">Meu Cadastro</a></li>
+                            <li><a href="compras_efetivadas_cliente.html">Meus pedidos</a></li>
+                            <li>
+                                <form action="remover-admin">
+                                    <%
+                                        out.print("<input type='text' class='form-control' name='id' value='" + id + "' hidden>");
+                                    %>
+                                    <button type="submit" class="alert-link">Remover conta</button>
+                                </form>
+                            </li>
+                        </ul>  
+                    </div>  
+                </div>
+                <div class="register-page">
+                    <div class="container">
+                        <div class="form-register">
+                            <span class="register-title">Faça seu cadastro</span>
+                            <span class="required-field">* Preenchimento obrigatório</span>
+                            <form action="atualizar-admin" method="post">
 
-        <div class="container-fluid main-body">
-            <div class="container">
-                <span class="adm-page-title">Página do Administrador</span>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <a href="add_produto.jsp">
-                            <div class="card w-100">
-                                <div class="card-body">
-                                    <h5 class="card-title">
-                                        <i class="fab fa-youtube"></i>
-                                    </h5>
-                                    <span class="content-card">Adicionar Produto</span>
+                                <%
+                                    out.print("<input type='text' class='form-control' name='id' value='" + id + "' hidden>");
+                                %>
+
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
+                                    </div>
+                                    <%
+                                        out.print("<input type='text' class='form-control' name='name' id='name' placeholder='*Nome' aria-label='*Nome' aria-describedby='*Nome' value='" + fullname + "' required>");
+                                    %>
                                 </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-sm-3">
-                        <a href="add_categoria.jsp">
-                            <div class="card w-100">
-                                <div class="card-body">
-                                    <h5 class="card-title">
-                                        <i class="fab fa-youtube"></i>
-                                    </h5>
-                                    <span class="content-card">Adicionar Categoria</span>
+
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-envelope"></i></span>
+                                    </div>
+                                    <%
+                                        out.print("<input type='email' class='form-control' name='email' id='email' placeholder='*Email' aria-label='*' aria-describedby='*' value='" + email + "' required>");
+                                    %>
                                 </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-sm-3">
-                        <a href="visualizar_compras_adm.jsp">
-                            <div class="card w-100">
-                                <div class="card-body">
-                                    <h5 class="card-title">
-                                        <i class="fab fa-youtube"></i>
-                                    </h5>
-                                    <span class="content-card">Visualizar Compras Realizadas</span>
+
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-fingerprint"></i></span>
+                                    </div>
+                                    <%
+                                        out.print("<input type='text' class='form-control' name='login' id='login' placeholder='*Login' aria-label='*Login' aria-describedby='*Login' value='" + login + "' required>");
+                                    %>
                                 </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-sm-3">
-                        <a href="relatorio.jsp">
-                            <div class="card w-100">
-                                <div class="card-body">
-                                    <h5 class="card-title">
-                                        <i class="fab fa-youtube"></i>
-                                    </h5>
-                                    <span class="content-card">Gerar Relatório</span>
+
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-key"></i></span>
+                                    </div>
+                                    <%
+                                        out.print("<input type='password' class='form-control' name='password' id='password' placeholder='*Senha' aria-label='*Senha' aria-describedby='*Senha' value='" + password + "' required>");
+                                    %>
                                 </div>
-                            </div>
-                        </a>
+
+                                <button type="submit" class="btn btn-dark btn-block">Alterar cadastro</button>
+                            </form>
+                        </div>
                     </div>
-                </div>   
+                </div>
             </div>
         </div>
-
-        <footer class="fixed-bottom">
+        <footer>
             <div class="container">
                 <div class="row justify-content-sm-center">
                     <div class="col col-sm help">
@@ -177,5 +207,6 @@
                 </div>
             </div>
         </footer>
+
     </body>
 </html>

@@ -13,6 +13,21 @@ public class AdministratorModel {
         AdministratorDAO administratorDAO = new AdministratorDAO();
         return administratorDAO.get(login);
     }
+    
+    public Administrator get(int id) throws Exception {
+        AdministratorDAO administratorDAO = new AdministratorDAO();
+        return administratorDAO.get(id);
+    }
+    
+    public void delete(int id) throws Exception {
+        AdministratorDAO administratorDAO = new AdministratorDAO();
+        administratorDAO.delete(id);
+    }
+    
+    public void update(Administrator administrator) throws Exception {
+        AdministratorDAO administratorDAO = new AdministratorDAO();
+        administratorDAO.update(administrator, administrator.getId());
+    }
 
     public boolean identifier(String login, String password) throws Exception {
         if (login == null 
