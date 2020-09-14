@@ -36,6 +36,21 @@ public class AdministratorDAO {
         }
     }
 
+    public void delete(int id) throws Exception {
+        Connection connection = getConnection();
+
+        String sqlQuery = "DELETE FROM administrador WHERE id = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+        preparedStatement.setInt(1, id);
+
+        int result = preparedStatement.executeUpdate();
+        preparedStatement.close();
+        closeConnection(connection);
+
+        if (result != 1) {
+            throw new Exception("Não foi possível remover este administrador");
+        }
+    }
 
     public void update(Administrator administrator, int id) throws Exception {
         Connection connection = getConnection();
