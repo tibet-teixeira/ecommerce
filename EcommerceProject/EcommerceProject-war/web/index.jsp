@@ -1,4 +1,3 @@
-<%@page import="model.administrator.Administrator"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="model.customer.Customer"%>
 

@@ -29,6 +29,16 @@ public class CustomerModel {
         Customer customer = get(login);
         return (customer.getPassword().equals(password));
     }
+    
+    public void delete(int id) throws Exception {
+        CustomerDAO customerDAO = new CustomerDAO();
+        customerDAO.delete(id);
+    }
+    
+    public void update(Customer customer) throws Exception {
+        CustomerDAO customerDAO = new CustomerDAO();
+        customerDAO.update(customer, customer.getId());
+    }
 
     public void insert(Customer customer) throws Exception {
         if (customer == null 
