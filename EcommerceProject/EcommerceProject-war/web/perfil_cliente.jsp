@@ -79,8 +79,16 @@
                 <div class="left-menu">
                     <div class="container">
                         <ul class="opcoes_menu_cliente">
-                            <li><a href="perfil_cliente.html"><i class="fa-"></i>Meu Cadastro</a></li>
-                            <li><a href="compras_efetivadas_cliente.html"><i class="fa-"></i>Meus pedidos</a></li>
+                            <li><a href="perfil_cliente.html">Meu Cadastro</a></li>
+                            <li><a href="compras_efetivadas_cliente.html">Meus pedidos</a></li>
+                            <li>
+                                <form action="remover-cliente">
+                                    <%
+                                        out.print("<input type='text' class='form-control' name='id' value='" + id + "' hidden>");
+                                    %>
+                                    <button type="submit" class="alert-link">Remover conta</button>
+                                </form>
+                            </li>
                         </ul>  
                     </div>  
                 </div>
@@ -89,7 +97,7 @@
                         <div class="form-register">
                             <span class="register-title">Faça seu cadastro</span>
                             <span class="required-field">* Preenchimento obrigatório</span>
-                            <form action="atualizar" method="post">
+                            <form action="atualizar-cliente" method="post">
 
                                 <%
                                     out.print("<input type='text' class='form-control' name='id' value='" + id + "' hidden>");

@@ -14,7 +14,7 @@ import model.customer.CustomerModel;
  *
  * @author Tibet
  */
-@WebServlet(name = "UpdateCustomerServlet", urlPatterns = {"/atualizar"})
+@WebServlet(name = "UpdateCustomerServlet", urlPatterns = {"/atualizar-cliente"})
 public class UpdateCustomerServlet extends HttpServlet {
 
     @Override
@@ -47,7 +47,7 @@ public class UpdateCustomerServlet extends HttpServlet {
         CustomerModel customerModel = new CustomerModel();
 
         boolean success = false;
-        
+
         try {
             customerModel.update(customer);
             success = true;

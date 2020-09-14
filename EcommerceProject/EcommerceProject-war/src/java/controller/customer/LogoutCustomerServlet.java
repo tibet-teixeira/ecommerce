@@ -21,7 +21,7 @@ public class LogoutCustomerServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         session.invalidate();
-        System.out.print("Sua sessão foi encerrada");
+
         request.setAttribute("message", "Sua sessão foi encerrada");
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
