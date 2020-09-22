@@ -80,6 +80,8 @@ public class Product {
     public void setCategories(List<Category> categories) {
         this.categories = categories;
     }
-
     
+    public String getProductLink() {
+        return this.description.replace(" ", "-");
+    }
 }

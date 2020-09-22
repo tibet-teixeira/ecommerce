@@ -211,7 +211,7 @@ public class ProductDAO {
             product.setQuantity(resultSet.getInt("quantidade"));
             product.setPicture(resultSet.getString("foto"));
         }
-
+        
         if (product == null) {
             resultSet.close();
             preparedStatement.close();
@@ -222,10 +222,11 @@ public class ProductDAO {
 
         List<Category> categories = new ArrayList<>();
 
-        sqlQuery = "SELECT id_produto, id_categoria, cat.descricao as descricao"
+        sqlQuery = "SELECT id_produto, id_categoria, cat.descricao as descricao "
                 + "FROM produto_categoria "
                 + "INNER JOIN categoria as cat ON (cat.id = id_categoria) "
                 + "WHERE id_produto = ?";
+        
         preparedStatement = connection.prepareStatement(sqlQuery);
         preparedStatement.setInt(1, product.getId());
 
