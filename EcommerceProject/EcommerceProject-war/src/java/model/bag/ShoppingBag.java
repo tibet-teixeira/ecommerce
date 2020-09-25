@@ -28,7 +28,7 @@ public class ShoppingBag {
 
     public static final List<ShoppingBagItem> getShoppingBag(String cookieProductList)
             throws Exception {
-        List<ShoppingBagItem> shoppingBagItems = new ArrayList<ShoppingBagItem>();
+        List<ShoppingBagItem> shoppingBagItems = new ArrayList<>();
 
         if (cookieProductList == null
                 || cookieProductList.trim().length() == 0
@@ -69,6 +69,7 @@ public class ShoppingBag {
         List<ShoppingBagItem> shoppingBagItems = getShoppingBag(cookieProductList);
 
         if (shoppingBagItems.isEmpty()) {
+            System.out.println("Tá vazio");
             return productId + QUANTITY_SEPARATOR + quantity;
         }
 

@@ -17,12 +17,12 @@ public class DeleteProductShoppingBagServlet extends HttpServlet {
     protected void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String id = request.getParameter("id");
+        int id = Integer.parseInt(request.getParameter("id"));
         Cookie cookie = ShoppingBag.getCookie(request);
         try {
-
-            String newCookieProductList = ShoppingBag.removeItem(Integer.parseInt(id), cookie.getValue());
+            String newCookieProductList = ShoppingBag.removeItem(id, cookie.getValue());
             cookie.setValue(newCookieProductList);
+            response.addCookie(cookie);
         } catch (Exception ex) {
             request.setAttribute("message", ex.getMessage());
         }

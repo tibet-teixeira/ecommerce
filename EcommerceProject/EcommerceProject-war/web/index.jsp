@@ -3,6 +3,8 @@
 <%@page import="model.product.Product"%>
 <%@page import="model.product.ProductModel"%>
 <%@page import="model.customer.Customer"%>
+<%@page import="model.bag.ShoppingBag"%>
+
 <% final int NUMBER_PRODUCTS_INDEX = 12; %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -41,6 +43,11 @@
 
                     <div class="user-links col col-sm-3 row">
                         <%
+                            if (ShoppingBag.getCookie(request) == null) {
+                                Cookie cookie = new Cookie(ShoppingBag.COOKIE_KEY, "");
+                                response.addCookie(cookie);
+                            }
+
                             String fullname = "";
                             if (session.getAttribute("user") instanceof Customer) {
                                 Customer customer = (Customer) session.getAttribute("user");
