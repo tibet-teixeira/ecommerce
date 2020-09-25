@@ -161,13 +161,15 @@ a:hover .fa-youtube {
 }
 
 .form-login .forgot-password {
-    display: block;
     font-style: italic;
-    text-align: right;
 }
 
 .form-login .forgot-password a:hover {
     text-decoration: underline;
+}
+
+.form-login .login_error {
+    color: #FF0000;
 }
 
 .form-login .btn-login {
@@ -230,7 +232,6 @@ a:hover .fa-youtube {
     margin-top: 100px;
     margin-bottom: 50px;
     color: #bb3333;
-    display:none;
 }
 
 .shopping-bag-products {

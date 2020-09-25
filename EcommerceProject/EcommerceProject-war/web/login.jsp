@@ -30,8 +30,13 @@
                                 <span class="input-group-text" id="basic-addon1"><i id="hide-password" class="fas fa-eye"></i></span>
                             </div>
                         </div>
-
-                        <span class="forgot-password"><a href="">Esqueci minha senha</a></span>
+                        <div class="row justify-content-between">
+                            <%                            if (request.getAttribute("message") != null) {
+                                    out.print("<span class='col col-sm login_error'>" + request.getAttribute("message") + "</span>");
+                                }
+                            %>
+                            <span class="forgot-password col col-sm "><a href="">Esqueci minha senha</a></span>
+                        </div>
                         <button type="submit" class="btn btn-dark btn-login btn-block">Entrar</button>
                     </form>
                 </div>
