@@ -6,12 +6,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import javafx.util.Pair;
 import model.customer.Customer;
 import model.customer.CustomerModel;
 import model.product.Product;
 import model.product.ProductModel;
+import model.bag.ShoppingBagItem;
 
 /**
  *
@@ -45,12 +46,14 @@ public class PurchaseDAO {
         int id = getLastId();
         purchase.setId(id + 1);
         Connection connection = getConnection();
+        
+        java.sql.Timestamp dateSql = new java.sql.Timestamp(purchase.getDate().getTime());
 
         String sqlQuery = "INSERT INTO compra (id, data_hora, id_cliente) "
-                + "VALUES (?, ?)";
+                + "VALUES (?, ?, ?)";
         PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
         preparedStatement.setInt(1, purchase.getId());
-        preparedStatement.setString(2, purchase.getDate());
+        preparedStatement.setTimestamp(2, dateSql);
         preparedStatement.setInt(3, purchase.getCustomer().getId());
 
         int result = preparedStatement.executeUpdate();
@@ -69,10 +72,10 @@ public class PurchaseDAO {
         String sqlQuery = "INSERT INTO compra_produto (id_produto, id_compra, quantidade_compra) "
                 + "VALUES (?, ?, ?)";
 
-        for (Pair<Product, Integer> numberProducts : purchase.getNumberProducts()) {
+        for (ShoppingBagItem numberProducts : purchase.getShoppingBagItems()) {
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
-            Product product = numberProducts.getKey();
-            int quantity = numberProducts.getValue();
+            Product product = numberProducts.getProduct();
+            int quantity = numberProducts.getQuantity();
 
             preparedStatement.setInt(1, product.getId());
             preparedStatement.setInt(2, purchase.getId());
@@ -87,7 +90,7 @@ public class PurchaseDAO {
             if (result != 1) {
                 preparedStatement.close();
                 closeConnection(connection);
-                throw new Exception("Não foi possível associar o produto à categoria selecionada");
+                throw new Exception("Não foi possível associar o produto à compra selecionada");
             }
         }
     }
@@ -96,10 +99,11 @@ public class PurchaseDAO {
         Connection connection = getConnection();
 
         Purchase oldPurchase = get(id);
+        java.sql.Timestamp dateSql = new java.sql.Timestamp(purchase.getDate().getTime());
 
         String sqlQuery = "UPDATE compra SET data_hora = ?, id_cliente = ? WHERE id = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
-        preparedStatement.setString(1, purchase.getDate());
+        preparedStatement.setTimestamp(1, dateSql);
         preparedStatement.setInt(2, purchase.getCustomer().getId());
         preparedStatement.setInt(3, id);
 
@@ -109,13 +113,13 @@ public class PurchaseDAO {
         Product product;
         Product oldProduct;
 
-        for (Pair<Product, Integer> numberProducts : purchase.getNumberProducts()) {
-            for (Pair<Product, Integer> oldNumberProducts : oldPurchase.getNumberProducts()) {
-                product = numberProducts.getKey();
-                oldProduct = oldNumberProducts.getKey();
+        for (ShoppingBagItem numberProducts : purchase.getShoppingBagItems()) {
+            for (ShoppingBagItem oldNumberProducts : oldPurchase.getShoppingBagItems()) {
+                product = numberProducts.getProduct();
+                oldProduct = oldNumberProducts.getProduct();
 
                 if (product == oldProduct) {
-                    product.setQuantity(product.getQuantity() - (numberProducts.getValue() - oldNumberProducts.getValue()));
+                    product.setQuantity(product.getQuantity() - (numberProducts.getQuantity()- oldNumberProducts.getQuantity()));
                     productModel.update(product, product.getId());
                 }
             }
@@ -157,7 +161,7 @@ public class PurchaseDAO {
         while (resultSet.next()) {
             purchase = new Purchase();
             purchase.setId(resultSet.getInt("id"));
-            purchase.setDate(resultSet.getString("data_hora"));
+            purchase.setDate(new Date(resultSet.getTimestamp("data_hora").getTime()));
             purchase.setCustomer(new CustomerModel().get(resultSet.getInt("id_cliente")));
         }
 
@@ -169,7 +173,7 @@ public class PurchaseDAO {
             throw new Exception("Não foi possível obter esta compra");
         }
 
-        List<Pair<Product, Integer>> numberProducts = new ArrayList<>();
+        List<ShoppingBagItem> numberProducts = new ArrayList<>();
 
         sqlQuery = "SELECT id_produto, id_compra, quantidade_compra"
                 + "FROM compra_produto "
@@ -185,10 +189,10 @@ public class PurchaseDAO {
         while (resultSet.next()) {
             product = productModel.get(resultSet.getInt("id_produto"));
             quantity = resultSet.getInt("quantidade_compra");
-            numberProducts.add(new Pair<Product, Integer>(product, quantity));
+            numberProducts.add(new ShoppingBagItem(product, quantity));
         }
 
-        purchase.setNumberProducts(numberProducts);
+        purchase.setShoppingBagItems(numberProducts);
 
         return purchase;
     }

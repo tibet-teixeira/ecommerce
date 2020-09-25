@@ -1,10 +1,9 @@
 package model.purchase;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import javafx.util.Pair;
-import model.product.Product;
 import model.customer.Customer;
+import model.bag.ShoppingBagItem;
 
 /**
  *
@@ -12,9 +11,18 @@ import model.customer.Customer;
  */
 public class Purchase {
     private int id;
-    private List< Pair<Product, Integer> > numberProducts;
+    private List<ShoppingBagItem> shoppingBagItems;
     private Customer customer;
-    private String date;
+    private Date date;
+
+    public Purchase() {
+    }
+
+    public Purchase(List<ShoppingBagItem> shoppingBagItems, Customer customer, Date date) {
+        this.shoppingBagItems = shoppingBagItems;
+        this.customer = customer;
+        this.date = date;
+    }
 
     public int getId() {
         return id;
@@ -24,14 +32,14 @@ public class Purchase {
         this.id = id;
     }
 
-    public List< Pair<Product, Integer> > getNumberProducts() {
-        return numberProducts;
+    public List<ShoppingBagItem> getShoppingBagItems() {
+        return shoppingBagItems;
     }
 
-    public void setNumberProducts(List< Pair<Product, Integer> > numberProducts) {
-        this.numberProducts = numberProducts;
+    public void setShoppingBagItems(List<ShoppingBagItem> shoppingBagItems) {
+        this.shoppingBagItems = shoppingBagItems;
     }
-
+    
     public Customer getCustomer() {
         return customer;
     }
@@ -40,11 +48,11 @@ public class Purchase {
         this.customer = customer;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 }

@@ -113,13 +113,7 @@ public class ProductDAO {
         PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
         preparedStatement.setInt(1, product.getId());
 
-        int result = preparedStatement.executeUpdate();
-        preparedStatement.close();
-        closeConnection(connection);
-
-        if (result != 1) {
-            throw new Exception("Não foi possível remover este produto");
-        }
+        preparedStatement.executeUpdate();
     }
 
     public void delete(int id) throws Exception {
@@ -211,7 +205,7 @@ public class ProductDAO {
             product.setQuantity(resultSet.getInt("quantidade"));
             product.setPicture(resultSet.getString("foto"));
         }
-        
+
         if (product == null) {
             resultSet.close();
             preparedStatement.close();
@@ -226,7 +220,7 @@ public class ProductDAO {
                 + "FROM produto_categoria "
                 + "INNER JOIN categoria as cat ON (cat.id = id_categoria) "
                 + "WHERE id_produto = ?";
-        
+
         preparedStatement = connection.prepareStatement(sqlQuery);
         preparedStatement.setInt(1, product.getId());
 

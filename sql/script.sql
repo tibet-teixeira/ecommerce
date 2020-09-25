@@ -40,7 +40,7 @@ CREATE TABLE categoria(
 
 CREATE TABLE compra(
 	id smallint not null,
-	data_hora Date not null,
+	data_hora Timestamp not null,
 	id_cliente smallint not null
 );
 

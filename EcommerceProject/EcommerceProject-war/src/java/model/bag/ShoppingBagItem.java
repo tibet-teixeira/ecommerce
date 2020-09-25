@@ -7,6 +7,14 @@ public class ShoppingBagItem {
     private Product product;
     private int quantity;
 
+    public ShoppingBagItem() {
+    }
+
+    public ShoppingBagItem(Product product, int quantity) {
+        this.product = product;
+        this.quantity = quantity;
+    }
+    
     public Product getProduct() {
         return product;
     }
