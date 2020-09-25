@@ -6,13 +6,8 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="third_party/bootstrap-4.5.1/css/bootstrap.css">
-        <link rel="stylesheet" href="third_party/fontawesome-5.14.0/css/fontawesome.css">
-        <link rel="stylesheet" href="third_party/fontawesome-5.14.0/css/regular.css">
-        <link rel="stylesheet" href="third_party/fontawesome-5.14.0/css/all.css">
 
-        <script type="text/javascript" src="../third_party/bootstrap-4.5.1/js/bootstrap.js"></script>
+        <%@include file="includes.jsp" %>
 
         <title> NomeLoja | Sua loja favorita </title>
     </head>
@@ -46,12 +41,12 @@
                                 email = administrator.getEmail();
                                 login = administrator.getLogin();
                                 password = administrator.getPassword();
-                                
+
                                 String username[] = fullname.split(" ");
 
                                 out.print("<span class='col col-sm-auto welcome-msg'>Bem vindo " + username[0] + "</span>");
                                 out.print("<div class='col col-sm-1'><a href='perfil_admin.jsp'><i class='fas fa-user'></i></a></div>");
-                                out.print("<div class='col col-sm-1'><a href='logout'><i class='fas fa-sign-out-alt'></i></a></div>");
+                                out.print("<div class='col col-sm-1'><a href='logoutadm'><i class='fas fa-sign-out-alt'></i></a></div>");
 
                             } else {
                                 out.print("<span class='col col-sm-9 welcome-msg'></span>");
@@ -135,78 +130,6 @@
                 </div>
             </div>
         </div>
-        <footer>
-            <div class="container">
-                <div class="row justify-content-sm-center">
-                    <div class="col col-sm help">
-                        <div class="row help-intern">
-                            <div class="col col-sm">
-                                <a href="http://">
-                                    <i class="fas fa-store"></i>
-                                    <span>Retire na Loja</span>
-                                </a>
-                            </div>
-                            <div class="col col-sm">
-                                <a href="http://">
-                                    <i class="fas fa-credit-card"></i>
-                                    <span>Pague Online</span>
-                                </a>
-                            </div>
-
-                            <div class="w-100"></div>
-
-                            <div class="col col-sm">
-                                <a href="http://">
-                                    <i class="fas fa-boxes"></i>
-                                    <span>Entrega Expressa</span>
-                                </a>
-                            </div>
-                            <div class="col col-sm">
-                                <a href="http://">
-                                    <i class="fas fa-comments"></i>
-                                    <span>Fale Conosco</span>
-                                </a>
-                            </div>  
-                        </div>
-
-
-                    </div>
-                    <div class="col col-sm about-us">
-                        <span>Sobre Nós</span>
-                        <ul>
-                            <li><a href="">Link 1</a></li>
-                            <li><a href="">Link 2</a></li>
-                            <li><a href="">Link 3</a></li>
-                            <li><a href="">Link 4</a></li>
-                            <li><a href="">Link 5</a></li>
-                            <li><a href="">Link 6</a></li>
-
-                        </ul>
-                    </div>
-                    <div class="col col-sm frequently-questions">
-                        <span>Perguntas Frequentes</span>
-                        <ul>
-                            <li><a href="">Link 1</a></li>
-                            <li><a href="">Link 2</a></li>
-                            <li><a href="">Link 3</a></li>
-                            <li><a href="">Link 4</a></li>
-                            <li><a href="">Link 5</a></li>
-                            <li><a href="">Link 6</a></li>
-
-                        </ul>
-                    </div>
-                    <div class="col col-sm social-networks">
-                        <span>Nos siga nas redes sociais</span>
-                        <div class="row">
-                            <div class="col col-sm"><a href=""><i class="fab fa-facebook-square"></i></a></div>
-                            <div class="col col-sm"><a href=""><i class="fab fa-instagram"></i></a></div>
-                            <div class="col col-sm"><a href=""><i class="fab fa-twitter"></i></a></div>
-                            <div class="col col-sm"><a href=""><i class="fab fa-youtube"></i></a></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
-
+        <%@include file="footer.jsp" %>
     </body>
 </html>
