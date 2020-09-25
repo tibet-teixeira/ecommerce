@@ -98,7 +98,8 @@
                     <div class='main-product-info'>
                         <span class="main-product-price">R$ <% out.print(product.getPrice());%> </span>
                     </div>
-                    <form action="adicionar_sacola">
+                    <form action="adicionar_produto_sacola">
+                        <% out.print("<input name='id' type='text' value='" + product.getId() + "' hidden>"); %>
                         <button type="submit" class="btn btn-dark btn-login btn-block">Adicionar a sacola</button>
                     </form>
                 </div>
