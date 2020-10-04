@@ -171,7 +171,7 @@ public class CategoryDAO {
         Connection connection = getConnection();
         int numberCategorys = 0;
         
-        String sqlQuery = "SELECT count(id) as number FROM categoria";
+        String sqlQuery = "SELECT max(id) as number FROM categoria";
         PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
 
         ResultSet resultSet = preparedStatement.executeQuery();

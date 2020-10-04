@@ -211,7 +211,7 @@ public class CustomerDAO {
         Connection connection = getConnection();
         int numberCustomers = 0;
         
-        String sqlQuery = "SELECT count(id) as number FROM cliente";
+        String sqlQuery = "SELECT max(id) as number FROM cliente";
         PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
 
         ResultSet resultSet = preparedStatement.executeQuery();

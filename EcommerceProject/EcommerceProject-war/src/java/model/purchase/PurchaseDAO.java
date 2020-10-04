@@ -175,10 +175,10 @@ public class PurchaseDAO {
 
         List<ShoppingBagItem> numberProducts = new ArrayList<>();
 
-        sqlQuery = "SELECT id_produto, id_compra, quantidade_compra"
-                + "FROM compra_produto "
-                + "INNER JOIN produto as prod ON (prod.id = id_produto) "
-                + "WHERE id_compra = ?";
+        sqlQuery = "SELECT cp.id_produto, cp.id_compra, cp.quantidade_compra "
+                + "FROM compra_produto as cp "
+                + "INNER JOIN produto as prod ON (prod.id = cp.id_produto) "
+                + "WHERE cp.id_compra = ?";
         preparedStatement = connection.prepareStatement(sqlQuery);
         preparedStatement.setInt(1, id);
 
@@ -218,8 +218,9 @@ public class PurchaseDAO {
             resultSet.close();
             preparedStatement.close();
             closeConnection(connection);
-
-            throw new Exception("Este usuário não realizou nenhuma compra");
+            
+            return null;
+//            throw new Exception("Este usuário não realizou nenhuma compra");
         }
 
         for (int idPurchase : purchaseIds) {
@@ -263,7 +264,7 @@ public class PurchaseDAO {
         Connection connection = getConnection();
         int numberPurchases = 0;
 
-        String sqlQuery = "SELECT count(id) as number FROM compra";
+        String sqlQuery = "SELECT max(id) as number FROM compra";
         PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
 
         ResultSet resultSet = preparedStatement.executeQuery();

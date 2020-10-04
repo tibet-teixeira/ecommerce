@@ -334,7 +334,7 @@ public class ProductDAO {
         Connection connection = getConnection();
         int numberProducts = 0;
 
-        String sqlQuery = "SELECT count(id) as number FROM produto";
+        String sqlQuery = "SELECT max(id) as number FROM produto";
         PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
 
         ResultSet resultSet = preparedStatement.executeQuery();
