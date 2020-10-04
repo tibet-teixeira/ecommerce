@@ -69,7 +69,7 @@
                                                     out.print("<img src='" + product.getPicture() + "' alt='" + product.getDescription() + "'>");
                                                 }
                                                 out.print("</a></div>");
-                                                out.print("<div class='col-sm-8'><a href=''><span class='shopping-bag-product-name'>" + product.getDescription() + "</span></a></div>");
+                                                out.print("<div class='col-sm-8'><a href='produto.jsp?desc=" + product.getDescription() + "'><span class='shopping-bag-product-name'>" + product.getDescription() + "</span></a></div>");
                                                 out.print("</div>");
                                                 out.print("</div>");
 

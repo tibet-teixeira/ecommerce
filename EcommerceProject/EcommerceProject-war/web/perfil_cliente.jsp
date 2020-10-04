@@ -69,119 +69,115 @@
                 </div>
             </div>
         </header>
-        <div class="container-fluid">
-            <div class="">
-                <div class="left-menu">
-                    <div class="container">
-                        <ul class="opcoes_menu_cliente">
-                            <li><a href="perfil_cliente.html">Meu Cadastro</a></li>
-                            <li><a href="compras_efetivadas_cliente.html">Meus pedidos</a></li>
-                            <li>
+        <div class="perfil-cliente">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col col-sm-2 aside-cliente">
+                            <div><a href="perfil_cliente.jsp">Meu Cadastro</a></div>
+                            <div><a href="compras_efetivadas_cliente.jsp">Meus pedidos</a></div>
+                            <div>
                                 <form action="remover-cliente">
                                     <%
                                         out.print("<input type='text' class='form-control' name='id' value='" + id + "' hidden>");
                                     %>
                                     <button type="submit" class="alert-link">Remover conta</button>
                                 </form>
-                            </li>
-                        </ul>  
-                    </div>  
-                </div>
-                <div class="register-page">
-                    <div class="container">
-                        <div class="form-register">
-                            <span class="register-title">Faça seu cadastro</span>
-                            <span class="required-field">* Preenchimento obrigatório</span>
-                            <form action="atualizar-cliente" method="post">
+                            </div>
+                    </div>
+                    <div class="col col-sm-10 section">
+                        <div class="container">
+                        <span class="register-title">Faça seu cadastro</span>
+                        <span class="required-field">* Preenchimento obrigatório</span>
+                        <form action="atualizar-cliente" method="post">
 
+                            <%
+                                out.print("<input type='text' class='form-control' name='id' value='" + id + "' hidden>");
+                            %>
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
+                                </div>
                                 <%
-                                    out.print("<input type='text' class='form-control' name='id' value='" + id + "' hidden>");
+                                    out.print("<input type='text' class='form-control' name='name' id='name' placeholder='*Nome' aria-label='*Nome' aria-describedby='*Nome' value='" + fullname + "' required>");
                                 %>
+                            </div>
 
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
-                                    </div>
-                                    <%
-                                        out.print("<input type='text' class='form-control' name='name' id='name' placeholder='*Nome' aria-label='*Nome' aria-describedby='*Nome' value='" + fullname + "' required>");
-                                    %>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-envelope"></i></span>
                                 </div>
+                                <%
+                                    out.print("<input type='email' class='form-control' name='email' id='email' placeholder='*Email' aria-label='*' aria-describedby='*' value='" + email + "' required>");
+                                %>
+                            </div>
 
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-envelope"></i></span>
-                                    </div>
-                                    <%
-                                        out.print("<input type='email' class='form-control' name='email' id='email' placeholder='*Email' aria-label='*' aria-describedby='*' value='" + email + "' required>");
-                                    %>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-road"></i></span>
                                 </div>
+                                <%
+                                    out.print("<input type='text' class='form-control' name='street' id='street' placeholder='*Rua' aria-label='*Rua' aria-describedby='*Rua' value='" + street + "' required>");
+                                %>
+                            </div>
 
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-road"></i></span>
-                                    </div>
-                                    <%
-                                        out.print("<input type='text' class='form-control' name='street' id='street' placeholder='*Rua' aria-label='*Rua' aria-describedby='*Rua' value='" + street + "' required>");
-                                    %>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-map-marker-alt"></i></span>
                                 </div>
+                                <%
+                                    out.print("<input type='text' class='form-control' name='code' id='code' placeholder='*CEP' aria-label='*CEP' aria-describedby='*CEP' value='" + cep + "' required>");
+                                %>
+                            </div>
 
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-map-marker-alt"></i></span>
-                                    </div>
-                                    <%
-                                        out.print("<input type='text' class='form-control' name='code' id='code' placeholder='*CEP' aria-label='*CEP' aria-describedby='*CEP' value='" + cep + "' required>");
-                                    %>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-house-user"></i></span>
                                 </div>
+                                <%
+                                    out.print("<input type='text' class='form-control' name='number' id='number' placeholder='*Número' aria-label='*Número' aria-describedby='*Número' value='" + houseNumber + "' required>");
+                                %>
+                            </div>
 
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-house-user"></i></span>
-                                    </div>
-                                    <%
-                                        out.print("<input type='text' class='form-control' name='number' id='number' placeholder='*Número' aria-label='*Número' aria-describedby='*Número' value='" + houseNumber + "' required>");
-                                    %>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-city"></i></span>
                                 </div>
+                                <%
+                                    out.print("<input type='text' class='form-control' name='city' id='city' placeholder='*Cidade' aria-label='*Cidade' aria-describedby='*Cidade' value='" + city + "' required>");
+                                %>
+                            </div>
 
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-city"></i></span>
-                                    </div>
-                                    <%
-                                        out.print("<input type='text' class='form-control' name='city' id='city' placeholder='*Cidade' aria-label='*Cidade' aria-describedby='*Cidade' value='" + city + "' required>");
-                                    %>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-flag-usa"></i></span>
                                 </div>
+                                <%
+                                    out.print("<input type='text' class='form-control' name='state' id='state' placeholder='*Estado' aria-label='*Estado' aria-describedby='*Estado' value='" + state + "' required>");
+                                %>
+                            </div>
 
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-flag-usa"></i></span>
-                                    </div>
-                                    <%
-                                        out.print("<input type='text' class='form-control' name='state' id='state' placeholder='*Estado' aria-label='*Estado' aria-describedby='*Estado' value='" + state + "' required>");
-                                    %>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-fingerprint"></i></span>
                                 </div>
+                                <%
+                                    out.print("<input type='text' class='form-control' name='login' id='login' placeholder='*Login' aria-label='*Login' aria-describedby='*Login' value='" + login + "' required>");
+                                %>
+                            </div>
 
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-fingerprint"></i></span>
-                                    </div>
-                                    <%
-                                        out.print("<input type='text' class='form-control' name='login' id='login' placeholder='*Login' aria-label='*Login' aria-describedby='*Login' value='" + login + "' required>");
-                                    %>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-key"></i></span>
                                 </div>
+                                <%
+                                    out.print("<input type='password' class='form-control' name='password' id='password' placeholder='*Senha' aria-label='*Senha' aria-describedby='*Senha' value='" + password + "' required>");
+                                %>
+                            </div>
 
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-key"></i></span>
-                                    </div>
-                                    <%
-                                        out.print("<input type='password' class='form-control' name='password' id='password' placeholder='*Senha' aria-label='*Senha' aria-describedby='*Senha' value='" + password + "' required>");
-                                    %>
-                                </div>
-
-                                <button type="submit" class="btn btn-dark btn-block">Alterar cadastro</button>
-                            </form>
-                        </div>
+                            <button type="submit" class="btn btn-dark btn-block">Alterar cadastro</button>
+                        </form>
+                    </div>
                     </div>
                 </div>
             </div>
