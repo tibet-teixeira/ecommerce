@@ -63,15 +63,8 @@
                 <div class="left-menu">
                     <div class="container">
                         <ul class="opcoes_menu_cliente">
-                            <li><a href="perfil_cliente.html">Meu Cadastro</a></li>
-                            <li><a href="compras_efetivadas_cliente.html">Meus pedidos</a></li>
                             <li>
-                                <form action="remover-admin">
-                                    <%
-                                        out.print("<input type='text' class='form-control' name='id' value='" + id + "' hidden>");
-                                    %>
-                                    <button type="submit" class="alert-link">Remover conta</button>
-                                </form>
+
                             </li>
                         </ul>  
                     </div>  
@@ -125,6 +118,14 @@
 
                                 <button type="submit" class="btn btn-dark btn-block">Alterar cadastro</button>
                             </form>
+                                <br/>
+                            <form action="remover-admin">
+                                <%
+                                    out.print("<input type='text' class='form-control' name='id' value='" + id + "' hidden>");
+                                %>
+                                <button type="submit" class="btn btn-danger btn-block">Remover conta</button>
+                            </form>
+
                         </div>
                     </div>
                 </div>

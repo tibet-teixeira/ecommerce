@@ -46,7 +46,7 @@ public class PurchaseDAO {
         int id = getLastId();
         purchase.setId(id + 1);
         Connection connection = getConnection();
-        
+
         java.sql.Timestamp dateSql = new java.sql.Timestamp(purchase.getDate().getTime());
 
         String sqlQuery = "INSERT INTO compra (id, data_hora, id_cliente) "
@@ -119,7 +119,7 @@ public class PurchaseDAO {
                 oldProduct = oldNumberProducts.getProduct();
 
                 if (product == oldProduct) {
-                    product.setQuantity(product.getQuantity() - (numberProducts.getQuantity()- oldNumberProducts.getQuantity()));
+                    product.setQuantity(product.getQuantity() - (numberProducts.getQuantity() - oldNumberProducts.getQuantity()));
                     productModel.update(product, product.getId());
                 }
             }
@@ -136,17 +136,28 @@ public class PurchaseDAO {
     public void delete(int id) throws Exception {
         Connection connection = getConnection();
 
+        deleteProductPurchase(connection, id);
+
         String sqlQuery = "DELETE FROM compra WHERE id = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
         preparedStatement.setInt(1, id);
 
         int result = preparedStatement.executeUpdate();
+
         preparedStatement.close();
         closeConnection(connection);
 
         if (result != 1) {
             throw new Exception("Não foi possível remover esta compra");
         }
+    }
+
+    public void deleteProductPurchase(Connection connection, int idPurchase) throws Exception {
+        String sqlQuery = "DELETE FROM compra_produto WHERE id_compra = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+        preparedStatement.setInt(1, idPurchase);
+
+        preparedStatement.executeUpdate();
     }
 
     public Purchase get(int id) throws Exception {
@@ -218,7 +229,7 @@ public class PurchaseDAO {
             resultSet.close();
             preparedStatement.close();
             closeConnection(connection);
-            
+
             return null;
 //            throw new Exception("Este usuário não realizou nenhuma compra");
         }

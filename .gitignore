@@ -5,3 +5,12 @@
 /EcommerceProject/EcommerceProject-ejb/dist/
 /EcommerceProject/EcommerceProject-ejb/build/
 /EcommerceProject/EcommerceProject-war/dist/
+/EcommerceProject/build/
+
+/EcommerceProject/EcommerceProject-ejb/nbproject/ant-deploy.xml
+/EcommerceProject/EcommerceProject-ejb/src/conf/MANIFEST.MF
+/EcommerceProject/EcommerceProject-war/nbproject/ant-deploy.xml
+/EcommerceProject/EcommerceProject-war/web/WEB-INF/web.xml
+/EcommerceProject/nbproject/ant-deploy.xml
+/EcommerceProject/src/conf/MANIFEST.MF
+
